@@ -3,11 +3,18 @@ CELL_A = "X"
 CELL_B = "O"
 CELL_EMPTY = "-"
 PLAYER_A = "Player A"
-PLAYER_B = "Palyer B"
+PLAYER_B = "Player B"
 
 # FUNCTIONS
 def getIsPlayerAI(player):
-  print("getIsPlayerAI")
+  res = input(f"Is {player} computer: (Y/N) ").lower()
+  if res == "y":
+    return True
+  elif res == "n":
+    return False
+  else:
+    print("Please input Y or N")
+    exit()
 
 def getBoard():
   print("getBoard")
@@ -19,8 +26,8 @@ def playPlayer():
   print("playPlayer")
 
 # LOGIC
-AisAI = getIsPlayerAI("Player A")
-BisAI = getIsPlayerAI("Player B")
+AisAI = getIsPlayerAI(PLAYER_A)
+BisAI = getIsPlayerAI(PLAYER_B)
 board = getBoard()
 isGoing = True
 
