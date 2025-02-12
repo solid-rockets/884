@@ -67,13 +67,21 @@ def playAI():
 def playPlayer():
   print("playPlayer")
 
+def clearScreen():
+  for i in range(0, 40):
+    print("")
+
+def getWinner(board):
+  return None
+
 # LOGIC
 AisAI = getIsPlayerAI(PLAYER_A)
 BisAI = getIsPlayerAI(PLAYER_B)
 board = getBoard()
 isGoing = True
+winner = None
 
-while isGoing:
+while winner is None:
   if AisAI is True:
     print("ok")
   else:
@@ -82,5 +90,7 @@ while isGoing:
     print("ok")
   else:
     print("ok")
+  clearScreen()
   printBoard(board)
-  isGoing = False
+  test = input()
+  winner = getWinner(board)
