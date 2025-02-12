@@ -19,31 +19,47 @@ def getIsPlayerAI(player):
     exit()
 
 def getBoard():
-  # Single row, with columns that can be accessed.
+  # First row (array), then column (cell).
   board = []
-  for colCount in range(0, WIDTH):
-    col = []
-    for colDepth in range(0, HEIGHT):
-      col.append(CELL_EMPTY)
-    board.append(col)
+  for r in range(0, HEIGHT):
+    row = []
+    for c in range(0, WIDTH):
+      row.append(CELL_EMPTY)
+    board.append(row)
   return board
 
 def printHeader():
-  headerString = ""
+  header = "+"
+  for i in range(0, WIDTH):
+    header += "-"
+  header += "+"
+  print(header)
+
+def printFooter():
+  footer = "+"
   valueForA = 65
   for i in range(0, WIDTH):
-    headerString += chr(valueForA+i)
-  print(headerString)
+    footer += chr(valueForA+i)
+  footer += "+"
+  print(footer)
+
+def printRow(row):
+  cells = "|"
+  for i in range(0, WIDTH):
+    cells += row[i]
+  cells += "|"
+  print(cells)
+
+def printCells(board):
+  # The rows are printed from last to first to emulate column height:
+  # row of highest index will be on top.
+  for r in range(HEIGHT-1, -1, -1):
+    printRow(board[r])
 
 def printBoard(board):
   printHeader()
-  for r in range(0, HEIGHT):
-    row = ""
-    for c in range(0, WIDTH):
-      # 1st, select column; 2nd, select cell.
-      # This way, a row is built.
-      row += board[c][r]
-    print(row)
+  printCells(board)
+  printFooter()
 
 def playAI():
   print("playAI")
