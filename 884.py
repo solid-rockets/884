@@ -1,11 +1,19 @@
 # CONSTANTS
-CELL_A = "X"
-CELL_B = "O"
+MARK_A = "X"
+MARK_B = "O"
 CELL_EMPTY = "-"
-PLAYER_A = "Player A"
-PLAYER_B = "Player B"
+TYPE_A = "Player A"
+TYPE_B = "Player B"
 WIDTH = 8
 HEIGHT = 8
+VALUE_A = 65
+
+# CLASSES
+class Player:
+  def __init__(self, name, mark, isAI):
+    self.name = name
+    self.mark = mark
+    self.isAI = isAI
 
 # FUNCTIONS
 def getIsPlayerAI(player):
@@ -31,15 +39,14 @@ def getBoard():
 def printHeader():
   header = "+"
   for i in range(0, WIDTH):
-    header += "-"
+    header += "="
   header += "+"
   print(header)
 
 def printFooter():
   footer = "+"
-  valueForA = 65
   for i in range(0, WIDTH):
-    footer += chr(valueForA+i)
+    footer += chr(VALUE_A+i)
   footer += "+"
   print(footer)
 
@@ -56,41 +63,51 @@ def printCells(board):
   for r in range(HEIGHT-1, -1, -1):
     printRow(board[r])
 
-def printBoard(board):
-  printHeader()
-  printCells(board)
-  printFooter()
-
-def playAI():
-  print("playAI")
-
-def playPlayer():
-  print("playPlayer")
-
 def clearScreen():
   for i in range(0, 40):
     print("")
 
+def printBoard(board):
+  clearScreen()
+  printHeader()
+  printCells(board)
+  printFooter()
+
+def putMark(board, col, mark):
+  for row in range(0, HEIGHT):
+    if board[row][col] == CELL_EMPTY:
+      board[row][col] = mark
+      break
+
+def getMoveAI(board, player):
+  print("playAI")
+
+def getMovePlayer(board, player):
+  moveCol = input(f"{player.name}: ").upper()
+  col = ord(moveCol) - VALUE_A
+  return col
+
 def getWinner(board):
   return None
 
+def play(board, player):
+  clearScreen()
+  printBoard(board)
+  moveCol = 0
+  if player.isAI:
+    moveCol = getMoveAI(board, player)
+  else:
+    moveCol = getMovePlayer(board, player)
+  putMark(board, moveCol, player.mark)
+
 # LOGIC
-AisAI = getIsPlayerAI(PLAYER_A)
-BisAI = getIsPlayerAI(PLAYER_B)
+playerA = Player(TYPE_A, MARK_A, getIsPlayerAI(TYPE_A))
+playerB = Player(TYPE_B, MARK_B, getIsPlayerAI(TYPE_B))
 board = getBoard()
 isGoing = True
 winner = None
 
 while winner is None:
-  if AisAI is True:
-    print("ok")
-  else:
-    print("ok")
-  if BisAI is True:
-    print("ok")
-  else:
-    print("ok")
-  clearScreen()
-  printBoard(board)
-  test = input()
+  play(board, playerA)
+  play(board, playerB)
   winner = getWinner(board)
