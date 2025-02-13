@@ -36,7 +36,7 @@ def getBoard():
     board.append(row)
   return board
 
-def printHeader():
+def printLine():
   header = "+"
   for i in range(0, WIDTH):
     header += "="
@@ -44,10 +44,10 @@ def printHeader():
   print(header)
 
 def printFooter():
-  footer = "+"
+  footer = "|"
   for i in range(0, WIDTH):
     footer += chr(VALUE_A+i)
-  footer += "+"
+  footer += "|"
   print(footer)
 
 def printRow(row):
@@ -69,9 +69,11 @@ def clearScreen():
 
 def printBoard(board):
   clearScreen()
-  printHeader()
+  printLine()
   printCells(board)
+  printLine()
   printFooter()
+  printLine()
 
 def putMark(board, col, mark):
   for row in range(0, HEIGHT):
